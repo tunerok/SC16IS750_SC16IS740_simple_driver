@@ -6,14 +6,23 @@ Usage:
 
 The SC16_interrupt_callback(void) function must be called in a loop or in an SC16IS7XX pin interrupt. 
 
-The functions i2c_write(uint8_t addr, const uint8_t *data, int len) and i2c_read(uint8_t addr, uint8_t *data, int len) **must** be defined for your target platform.
+The functions i2c_write(uint8_t addr, const uint8_t *data, int len), i2c_read(uint8_t addr, uint8_t *data, int len) and get_data(uint8_t data) **must** be defined for your target platform.
 Example for STM32 and HAL:
 ```
+#define ARR_SIZE 8
+static uint8_t my_best_array[ARR_SIZE] = {0};
+static uint8_t array_pointer = 0;
+
 HAL_StatusTypeDef i2c_write_ext(uint8_t addr, const uint8_t *data, int len)
 {
-HAL_StatusTypeDef status;
-status = HAL_I2C_Master_Transmit(EXT_I2C, addr, (uint8_t*)data, len, I2CTimeout);
-return status;
+    HAL_StatusTypeDef status;
+    status = HAL_I2C_Master_Transmit(EXT_I2C, addr, (uint8_t*)data, len, I2CTimeout);
+    return status;
+}
+
+void get_data(uint8_t data){
+    my_best_array[array_pointer] = data;
+    array_pointer++;
 }
 ```
 
