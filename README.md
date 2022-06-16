@@ -1,4 +1,4 @@
-# SC16IS740_simple_driver
+# SC16IS740/750/760 simple C driver
 
 The most simple driver for the SC16IS7XX chip from NXP.
 
